@@ -231,32 +231,25 @@ Repository structure:
 # 📊 Automatic Progress Statistics
 
 ## 💻 LeetCode
-
 | Difficulty | Problems Solved |
-|------------|-----------------|
+|------------|-----------------:|
 | 🟢 Easy | 0 |
 | 🟡 Medium | 0 |
 | 🔴 Hard | 0 |
 | **Total** | **0** |
 
----
-
 ## 🟨 CodeChef
-
 | Difficulty | Problems Solved |
-|------------|-----------------|
+|------------|-----------------:|
 | 🟢 Beginner | 0 |
 | 🟢 Easy | 0 |
 | 🟡 Medium | 0 |
 | 🔴 Hard | 0 |
 | **Total** | **0** |
 
----
-
 ## 🟦 Codeforces
-
 | Rating Range | Problems Solved |
-|--------------|-----------------|
+|--------------|-----------------:|
 | 800–899 | 0 |
 | 900–999 | 0 |
 | 1000–1099 | 0 |
@@ -290,10 +283,7 @@ Repository structure:
 | 3800+ | 0 |
 | **Total** | **0** |
 
----
-
 ## 🏆 Overall
-
 **Total Problems Solved: 0**
 
 <!-- STATS:END -->

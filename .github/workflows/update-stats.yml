@@ -1,0 +1,170 @@
+name: Update Progress Statistics
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update README statistics
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+
+          readme = Path("README.md")
+          text = readme.read_text(encoding="utf-8")
+
+          def count_java(folder):
+              path = Path(folder)
+              if not path.exists():
+                  return 0
+              return sum(1 for f in path.rglob("*.java") if f.is_file())
+
+          # -------------------------
+          # LeetCode
+          # -------------------------
+          lc_easy = count_java("LEETCODE/EASY")
+          lc_medium = count_java("LEETCODE/MEDIUM")
+          lc_hard = count_java("LEETCODE/HARD")
+          lc_total = lc_easy + lc_medium + lc_hard
+
+          # -------------------------
+          # CodeChef
+          # -------------------------
+          cc_beginner = count_java("CODECHEF/BEGINNER")
+          cc_easy = count_java("CODECHEF/EASY")
+          cc_medium = count_java("CODECHEF/MEDIUM")
+          cc_hard = count_java("CODECHEF/HARD")
+          cc_total = cc_beginner + cc_easy + cc_medium + cc_hard
+
+          # -------------------------
+          # Codeforces
+          # -------------------------
+          cf_bands = [
+              800, 900, 1000, 1100, 1200, 1300,
+              1400, 1500, 1600, 1700, 1800, 1900,
+              2000, 2100, 2200, 2300, 2400, 2500,
+              2600, 2700, 2800, 2900, 3000, 3100,
+              3200, 3300, 3400, 3500, 3600, 3700
+          ]
+
+          cf_counts = {}
+
+          for rating in cf_bands:
+              cf_counts[rating] = count_java(f"CODEFORCES/{rating}")
+
+          # 3800/ is for 3800+
+          cf_counts[3800] = count_java("CODEFORCES/3800")
+
+          cf_total = sum(cf_counts.values())
+
+          # -------------------------
+          # Generate statistics
+          # -------------------------
+          stats = f"""# 📊 Automatic Progress Statistics
+
+          ## 💻 LeetCode
+          | Difficulty | Problems Solved |
+          |------------|-----------------:|
+          | 🟢 Easy | {lc_easy} |
+          | 🟡 Medium | {lc_medium} |
+          | 🔴 Hard | {lc_hard} |
+          | **Total** | **{lc_total}** |
+
+          ## 🟨 CodeChef
+          | Difficulty | Problems Solved |
+          |------------|-----------------:|
+          | 🟢 Beginner | {cc_beginner} |
+          | 🟢 Easy | {cc_easy} |
+          | 🟡 Medium | {cc_medium} |
+          | 🔴 Hard | {cc_hard} |
+          | **Total** | **{cc_total}** |
+
+          ## 🟦 Codeforces
+          | Rating Range | Problems Solved |
+          |--------------|-----------------:|
+          | 800–899 | {cf_counts[800]} |
+          | 900–999 | {cf_counts[900]} |
+          | 1000–1099 | {cf_counts[1000]} |
+          | 1100–1199 | {cf_counts[1100]} |
+          | 1200–1299 | {cf_counts[1200]} |
+          | 1300–1399 | {cf_counts[1300]} |
+          | 1400–1499 | {cf_counts[1400]} |
+          | 1500–1599 | {cf_counts[1500]} |
+          | 1600–1699 | {cf_counts[1600]} |
+          | 1700–1799 | {cf_counts[1700]} |
+          | 1800–1899 | {cf_counts[1800]} |
+          | 1900–1999 | {cf_counts[1900]} |
+          | 2000–2099 | {cf_counts[2000]} |
+          | 2100–2199 | {cf_counts[2100]} |
+          | 2200–2299 | {cf_counts[2200]} |
+          | 2300–2399 | {cf_counts[2300]} |
+          | 2400–2499 | {cf_counts[2400]} |
+          | 2500–2599 | {cf_counts[2500]} |
+          | 2600–2699 | {cf_counts[2600]} |
+          | 2700–2799 | {cf_counts[2700]} |
+          | 2800–2899 | {cf_counts[2800]} |
+          | 2900–2999 | {cf_counts[2900]} |
+          | 3000–3099 | {cf_counts[3000]} |
+          | 3100–3199 | {cf_counts[3100]} |
+          | 3200–3299 | {cf_counts[3200]} |
+          | 3300–3399 | {cf_counts[3300]} |
+          | 3400–3499 | {cf_counts[3400]} |
+          | 3500–3599 | {cf_counts[3500]} |
+          | 3600–3699 | {cf_counts[3600]} |
+          | 3700–3799 | {cf_counts[3700]} |
+          | 3800+ | {cf_counts[3800]} |
+          | **Total** | **{cf_total}** |
+
+          ## 🏆 Overall
+          **Total Problems Solved: {lc_total + cc_total + cf_total}**
+          """
+
+          start_marker = "<!-- STATS:START -->"
+          end_marker = "<!-- STATS:END -->"
+
+          start = text.find(start_marker)
+          end = text.find(end_marker)
+
+          if start == -1 or end == -1:
+              raise SystemExit(
+                  "ERROR: STATS markers were not found in README.md"
+              )
+
+          stats_start = start + len(start_marker)
+
+          new_text = (
+              text[:stats_start]
+              + "\n\n"
+              + stats
+              + "\n"
+              + text[end:]
+          )
+
+          readme.write_text(new_text, encoding="utf-8")
+          PY
+
+      - name: Commit updated README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add README.md
+
+          if git diff --cached --quiet; then
+            echo "No statistics changes to commit."
+          else
+            git commit -m "Update progress statistics"
+            git push
+          fi

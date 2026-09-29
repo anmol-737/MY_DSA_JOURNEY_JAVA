@@ -1,4 +1,4 @@
-# 🚀 My DSA Journey using Java as the programming language
+#  My DSA Journey using Java as the programming language
 
 > A continuously evolving record of my journey through **Java, Data Structures & Algorithms, and Competitive Programming**.
 
@@ -8,7 +8,7 @@ I am building this repository continuously as I learn, practice, and improve.
 
 ---
 
-## 👨‍💻 About Me
+## About Me
 
 I am learning **Java and Data Structures & Algorithms** step-by-step while developing strong problem-solving skills through consistent practice.
 
@@ -23,29 +23,29 @@ This repository serves as a record of:
 
 ---
 
-## 🔗 My Profiles
+##  My Profiles
 
 | Platform | Profile |
 |----------|---------|
-| 💻 LeetCode | [My LeetCode Profile](https://leetcode.com/u/anmol_v73) |
-| 🟨 CodeChef | [My CodeChef Profile](https://www.codechef.com/users/anmol_v73) |
-| 🟦 Codeforces | [My Codeforces Profile](https://codeforces.com/profile/anmol_v73) |
-| 💼 LinkedIn | [My LinkedIn Profile](https://www.linkedin.com/in/anmol-verma-808931413?trk=contact-info) |
+|  LeetCode | [My LeetCode Profile](https://leetcode.com/u/anmol_v73) |
+|  CodeChef | [My CodeChef Profile](https://www.codechef.com/users/anmol_v73) |
+|  Codeforces | [My Codeforces Profile](https://codeforces.com/profile/anmol_v73) |
+|  LinkedIn | [My LinkedIn Profile](https://www.linkedin.com/in/anmol-verma-808931413?trk=contact-info) |
 
 ---
 
-## 🛠️ Technologies & Tools
+## ️ Technologies & Tools
 
-- ☕ **Java**
-- 💻 **IntelliJ IDEA**
-- 🔧 **Git**
-- 🐙 **GitHub**
+-  **Java**
+-  **IntelliJ IDEA**
+-  **Git**
+-  **GitHub**
 
 ---
 
-# 📚 Learning Roadmap
+#  Learning Roadmap
 
-## ☕ Java Fundamentals
+##  Java Fundamentals
 
 - [x] Print Statements
 - [ ] Variables & Data Types
@@ -61,7 +61,7 @@ This repository serves as a record of:
 
 ---
 
-## 🔀 Control Flow
+##  Control Flow
 
 - [ ] if / else
 - [ ] else-if
@@ -75,7 +75,7 @@ This repository serves as a record of:
 
 ---
 
-# 🧠 Data Structures & Algorithms
+#  Data Structures & Algorithms
 
 - [ ] Arrays
 - [ ] Strings
@@ -96,7 +96,7 @@ This repository serves as a record of:
 
 ---
 
-# 🏆 Competitive Programming
+#  Competitive Programming
 
 I actively solve problems across multiple competitive programming platforms.
 
@@ -104,7 +104,7 @@ My solutions are organized by platform and difficulty so that my progress can be
 
 ---
 
-# 💻 LeetCode
+#  LeetCode
 
 LeetCode problems are organized according to difficulty.
 
@@ -126,7 +126,7 @@ Each solution may contain:
 
 ---
 
-# 🟨 CodeChef
+#  CodeChef
 
 CodeChef problems are organized according to difficulty and contests.
 
@@ -150,7 +150,7 @@ Each solution may contain:
 
 ---
 
-# 🟦 Codeforces
+#  Codeforces
 
 Codeforces problems are organized according to rating bands.
 
@@ -190,7 +190,7 @@ Repository structure:
     ├── 3800/
     └── CONTESTS/
 
-### 📌 Rating Organization
+###  Rating Organization
 
     800–899     → 800/
     900–999     → 900/
@@ -228,9 +228,9 @@ Repository structure:
 
 <!-- STATS:START -->
 
-# 📊 Automatic Progress Statistics
+#  Automatic Progress Statistics
 
-## 💻 LeetCode
+##  LeetCode
 
 | Difficulty | Problems Solved |
 |------------|-----------------|
@@ -241,7 +241,7 @@ Repository structure:
 
 ---
 
-## 🟨 CodeChef
+##  CodeChef
 
 | Difficulty | Problems Solved |
 |------------|-----------------|
@@ -253,7 +253,7 @@ Repository structure:
 
 ---
 
-## 🟦 Codeforces
+##  Codeforces
 
 | Rating Range | Problems Solved |
 |--------------|-----------------|
@@ -292,7 +292,7 @@ Repository structure:
 
 ---
 
-## 🏆 Overall
+##  Overall
 
 **Total Problems Solved: 0**
 
@@ -300,7 +300,7 @@ Repository structure:
 
 ---
 
-# 📂 Repository Structure
+#  Repository Structure
 
     MY_DSA_JOURNEY_JAVA/
     │
@@ -347,7 +347,7 @@ Repository structure:
 
 ---
 
-# 🧩 Problem-Solving Approach
+#  Problem-Solving Approach
 
 For every problem, I try to follow this process:
 
@@ -363,7 +363,7 @@ The goal is to understand the solution rather than simply getting an accepted su
 
 ---
 
-# 🔄 My Workflow
+#  My Workflow
 
     Learn a Concept
           ↓
@@ -397,7 +397,7 @@ The goal is to understand the solution rather than simply getting an accepted su
 
 ---
 
-# 📈 Current Progress
+#  Current Progress
 
 This repository is actively maintained and updated as I continue learning.
 
@@ -407,7 +407,7 @@ This repository is actively maintained and updated as I continue learning.
 
 ---
 
-# 🎯 Long-Term Goals
+#  Long-Term Goals
 
 - [ ] Build strong Java fundamentals
 - [ ] Master core Data Structures & Algorithms
@@ -422,31 +422,19 @@ This repository is actively maintained and updated as I continue learning.
 
 ---
 
-# 🌐 Areas of Interest
+#  Areas of Interest
 
 Alongside Java, DSA, and Competitive Programming, I am also interested in exploring:
 
-- 🤖 Artificial Intelligence
-- 🧠 Machine Learning
-- 🔐 Cybersecurity
-- 📊 Quantitative Finance
+-  Artificial Intelligence
+-  Machine Learning
+-  Cybersecurity
+-  Quantitative Finance
 
 ---
 
-# 🌱 Philosophy
-
-> **Consistency over intensity. Progress over perfection.**
-
-Every problem solved, every mistake understood, and every concept learned is another step forward.
-
-This repository is not just a collection of code.
-
-It is a record of the journey.
-
 ---
 
-# ⭐ Thanks for Visiting
+#  Thanks for Visiting
 
 Feel free to explore the repository and follow along as I continue learning **Java, DSA, and Competitive Programming**.
-
-# 🚀 Keep Learning. Keep Solving. Keep Improving.

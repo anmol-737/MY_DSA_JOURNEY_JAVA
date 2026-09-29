@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   update-stats:
@@ -16,6 +17,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Update README statistics
         run: |
@@ -29,7 +32,10 @@ jobs:
               path = Path(folder)
               if not path.exists():
                   return 0
-              return sum(1 for f in path.rglob("*.java") if f.is_file())
+              return sum(
+                  1 for f in path.rglob("*.java")
+                  if f.is_file()
+              )
 
           # -------------------------
           # LeetCode
@@ -64,7 +70,7 @@ jobs:
           for rating in cf_bands:
               cf_counts[rating] = count_java(f"CODEFORCES/{rating}")
 
-          # 3800/ is for 3800+
+          # 3800/ represents 3800+
           cf_counts[3800] = count_java("CODEFORCES/3800")
 
           cf_total = sum(cf_counts.values())
@@ -77,21 +83,21 @@ jobs:
           ## 💻 LeetCode
           | Difficulty | Problems Solved |
           |------------|-----------------:|
-          | 🟢 Easy | {lc_easy} |
-          | 🟡 Medium | {lc_medium} |
-          | 🔴 Hard | {lc_hard} |
+          | Easy | {lc_easy} |
+          | Medium | {lc_medium} |
+          | Hard | {lc_hard} |
           | **Total** | **{lc_total}** |
 
-          ## 🟨 CodeChef
+          ## CodeChef
           | Difficulty | Problems Solved |
           |------------|-----------------:|
-          | 🟢 Beginner | {cc_beginner} |
-          | 🟢 Easy | {cc_easy} |
-          | 🟡 Medium | {cc_medium} |
-          | 🔴 Hard | {cc_hard} |
+          | Beginner | {cc_beginner} |
+          | Easy | {cc_easy} |
+          | Medium | {cc_medium} |
+          | Hard | {cc_hard} |
           | **Total** | **{cc_total}** |
 
-          ## 🟦 Codeforces
+          ## Codeforces
           | Rating Range | Problems Solved |
           |--------------|-----------------:|
           | 800–899 | {cf_counts[800]} |
@@ -127,7 +133,7 @@ jobs:
           | 3800+ | {cf_counts[3800]} |
           | **Total** | **{cf_total}** |
 
-          ## 🏆 Overall
+          ## Overall
           **Total Problems Solved: {lc_total + cc_total + cf_total}**
           """
 
@@ -155,16 +161,44 @@ jobs:
           readme.write_text(new_text, encoding="utf-8")
           PY
 
-      - name: Commit updated README
+      - name: Create statistics update branch
+        id: changes
         run: |
+          if git diff --quiet README.md; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add README.md
+          BRANCH="automated/update-stats"
 
-          if git diff --cached --quiet; then
-            echo "No statistics changes to commit."
+          git checkout -B "$BRANCH"
+          git add README.md
+          git commit -m "Update progress statistics"
+          git push --force origin "$BRANCH"
+
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Create or update Pull Request
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          EXISTING_PR=$(gh pr list \
+            --head automated/update-stats \
+            --base master \
+            --state open \
+            --json number \
+            --jq '.[0].number')
+
+          if [ -n "$EXISTING_PR" ]; then
+            echo "Statistics Pull Request already exists: #$EXISTING_PR"
           else
-            git commit -m "Update progress statistics"
-            git push
-          fi
+            gh pr create \
+              --base master \
+              --head automated/update-stats \
+              --title "Update progress statistics" \
+              --body "Automatically updated problem-solving statistics in README.md."
+          fis

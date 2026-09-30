@@ -17,8 +17,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Update README statistics
         run: |
@@ -30,67 +28,92 @@ jobs:
 
           def count_java(folder):
               path = Path(folder)
+
               if not path.exists():
                   return 0
+
               return sum(
-                  1 for f in path.rglob("*.java")
+                  1
+                  for f in path.rglob("*.java")
                   if f.is_file()
               )
 
           # -------------------------
           # LeetCode
           # -------------------------
+
           lc_easy = count_java("LEETCODE/EASY")
           lc_medium = count_java("LEETCODE/MEDIUM")
           lc_hard = count_java("LEETCODE/HARD")
-          lc_total = lc_easy + lc_medium + lc_hard
+
+          lc_total = (
+              lc_easy
+              + lc_medium
+              + lc_hard
+          )
 
           # -------------------------
           # CodeChef
           # -------------------------
+
           cc_beginner = count_java("CODECHEF/BEGINNER")
           cc_easy = count_java("CODECHEF/EASY")
           cc_medium = count_java("CODECHEF/MEDIUM")
           cc_hard = count_java("CODECHEF/HARD")
-          cc_total = cc_beginner + cc_easy + cc_medium + cc_hard
+
+          cc_total = (
+              cc_beginner
+              + cc_easy
+              + cc_medium
+              + cc_hard
+          )
 
           # -------------------------
           # Codeforces
           # -------------------------
+
           cf_bands = [
-              800, 900, 1000, 1100, 1200, 1300,
-              1400, 1500, 1600, 1700, 1800, 1900,
-              2000, 2100, 2200, 2300, 2400, 2500,
-              2600, 2700, 2800, 2900, 3000, 3100,
-              3200, 3300, 3400, 3500, 3600, 3700
+              800, 900, 1000, 1100, 1200,
+              1300, 1400, 1500, 1600, 1700,
+              1800, 1900, 2000, 2100, 2200,
+              2300, 2400, 2500, 2600, 2700,
+              2800, 2900, 3000, 3100, 3200,
+              3300, 3400, 3500, 3600, 3700
           ]
 
           cf_counts = {}
 
           for rating in cf_bands:
-              cf_counts[rating] = count_java(f"CODEFORCES/{rating}")
+              cf_counts[rating] = count_java(
+                  f"CODEFORCES/{rating}"
+              )
 
           # 3800/ represents 3800+
-          cf_counts[3800] = count_java("CODEFORCES/3800")
+          cf_counts[3800] = count_java(
+              "CODEFORCES/3800"
+          )
 
           cf_total = sum(cf_counts.values())
 
           # -------------------------
           # Generate statistics
           # -------------------------
-          stats = f"""# 📊 Automatic Progress Statistics
 
-          ## 💻 LeetCode
+          stats = f"""# Automatic Progress Statistics
+
+          ## LeetCode
+
           | Difficulty | Problems Solved |
-          |------------|-----------------:|
+          |------------|----------------:|
           | Easy | {lc_easy} |
           | Medium | {lc_medium} |
           | Hard | {lc_hard} |
           | **Total** | **{lc_total}** |
 
           ## CodeChef
+
           | Difficulty | Problems Solved |
-          |------------|-----------------:|
+          |------------|----------------:|
           | Beginner | {cc_beginner} |
           | Easy | {cc_easy} |
           | Medium | {cc_medium} |
@@ -98,8 +121,9 @@ jobs:
           | **Total** | **{cc_total}** |
 
           ## Codeforces
+
           | Rating Range | Problems Solved |
-          |--------------|-----------------:|
+          |--------------|----------------:|
           | 800–899 | {cf_counts[800]} |
           | 900–999 | {cf_counts[900]} |
           | 1000–1099 | {cf_counts[1000]} |
@@ -134,6 +158,7 @@ jobs:
           | **Total** | **{cf_total}** |
 
           ## Overall
+
           **Total Problems Solved: {lc_total + cc_total + cf_total}**
           """
 
@@ -158,47 +183,23 @@ jobs:
               + text[end:]
           )
 
-          readme.write_text(new_text, encoding="utf-8")
+          readme.write_text(
+              new_text,
+              encoding="utf-8"
+          )
+
+          print("README statistics updated successfully.")
           PY
 
-      - name: Create statistics update branch
-        id: changes
-        run: |
-          if git diff --quiet README.md; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          BRANCH="automated/update-stats"
-
-          git checkout -B "$BRANCH"
-          git add README.md
-          git commit -m "Update progress statistics"
-          git push --force origin "$BRANCH"
-
-          echo "changed=true" >> "$GITHUB_OUTPUT"
-
-      - name: Create or update Pull Request
-        if: steps.changes.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          EXISTING_PR=$(gh pr list \
-            --head automated/update-stats \
-            --base master \
-            --state open \
-            --json number \
-            --jq '.[0].number')
-
-          if [ -n "$EXISTING_PR" ]; then
-            echo "Statistics Pull Request already exists: #$EXISTING_PR"
-          else
-            gh pr create \
-              --base master \
-              --head automated/update-stats \
-              --title "Update progress statistics" \
-              --body "Automatically updated problem-solving statistics in README.md."
-          fis
+      - name: Create statistics update pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: master
+          branch: automated/update-stats
+          delete-branch: true
+          commit-message: "Update progress statistics"
+          title: "Update progress statistics"
+          body: |
+            Automatically updated the problem-solving statistics
+            in README.md.

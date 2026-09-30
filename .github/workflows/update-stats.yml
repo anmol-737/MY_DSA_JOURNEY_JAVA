@@ -8,7 +8,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   update-stats:
@@ -46,11 +45,7 @@ jobs:
           lc_medium = count_java("LEETCODE/MEDIUM")
           lc_hard = count_java("LEETCODE/HARD")
 
-          lc_total = (
-              lc_easy
-              + lc_medium
-              + lc_hard
-          )
+          lc_total = lc_easy + lc_medium + lc_hard
 
           # -------------------------
           # CodeChef
@@ -191,15 +186,17 @@ jobs:
           print("README statistics updated successfully.")
           PY
 
-      - name: Create statistics update pull request
-        uses: peter-evans/create-pull-request@v7
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          base: master
-          branch: automated/update-stats
-          delete-branch: true
-          commit-message: "Update progress statistics"
-          title: "Update progress statistics"
-          body: |
-            Automatically updated the problem-solving statistics
-            in README.md.
+      - name: Commit and push updated statistics
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add README.md
+
+          if git diff --cached --quiet; then
+            echo "No statistics changes detected."
+            exit 0
+          fi
+
+          git commit -m "Update progress statistics [skip ci]"
+          git push origin HEAD:master

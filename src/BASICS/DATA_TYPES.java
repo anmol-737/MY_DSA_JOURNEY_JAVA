@@ -15,8 +15,8 @@ public class DATA_TYPES {
         System.out.println(e / f);
 
         char g = 'b';
-        String s = "YAYY";
         System.out.println(g);
+        String s = "YAYY";
         System.out.println(s);
 
     }

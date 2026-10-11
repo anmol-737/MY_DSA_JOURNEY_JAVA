@@ -14,7 +14,7 @@ public class Arithmetic_Operation_INT {
         System.out.println( " *****************************************************************************");
         x = 100; // there would  be an error if I would've written int again
         System.out.println(x);
-        x= x+10; // value of x changes each time an d the new operation works on updated value
+        x= x+10; // value of x changes each time and the new operation works on updated value
         System.out.println(x);
         x= x-20;
         System.out.println(x);

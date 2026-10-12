@@ -2,7 +2,7 @@ package BASICS;
 
 import java.util.*;
 public class tsa_of_cuboid {
-    public static void main (String args[]){
+    public static void main (String [] args){
         Scanner sc = new Scanner(System.in);
         System.out.println("enter length of  cuboid: ");
         double l = sc.nextInt();

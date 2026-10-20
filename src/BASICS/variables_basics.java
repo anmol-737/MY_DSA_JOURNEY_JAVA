@@ -22,10 +22,5 @@ public class variables_basics {
         x= x%7; // to find remainder
         System.out.println(x);
 
-
-
-
-
-
     }
 }

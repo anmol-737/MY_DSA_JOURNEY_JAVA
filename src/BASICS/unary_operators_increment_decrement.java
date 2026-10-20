@@ -20,6 +20,7 @@ public class unary_operators_increment_decrement {
         unlike normal arithmetic operators which donot interere with original value if given in print statements*/
 
         int z = 20;
+
         int y = z++;
         System.out.println(z);
         System.out.println(y);

@@ -35,6 +35,7 @@ public class typecasting_and_ascii {
         System.out.println((char)we);
 
         int er = 41;
+
         System.out.println((char)er);
 
         System.out.println((char)32); // 32 is ascii value of space

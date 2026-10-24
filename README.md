@@ -48,10 +48,10 @@ This repository serves as a record of:
 ##  Java Fundamentals
 
 - [x] Print Statements
-- [ ] Variables & Data Types
-- [ ] User Input
-- [ ] Operators
-- [ ] Type Casting
+- [x] Variables & Data Types
+- [x] User Input
+- [x] Operators
+- [x] Type Casting
 - [ ] Strings
 - [ ] Methods
 - [ ] Arrays
@@ -63,9 +63,9 @@ This repository serves as a record of:
 
 ##  Control Flow
 
-- [ ] if / else
-- [ ] else-if
-- [ ] Nested if
+- [x] if / else
+- [x] else-if
+- [x] Nested if
 - [ ] switch
 - [ ] for Loop
 - [ ] while Loop

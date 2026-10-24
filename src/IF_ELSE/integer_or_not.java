@@ -9,7 +9,7 @@ public class integer_or_not {
         double y = sc.nextDouble();
         int n = (int)y;
 
-        if(y>0)
+        if(y>=0)
         {
             if((y-n)>0)
             {
@@ -20,7 +20,7 @@ public class integer_or_not {
             }
 
         }
-        else if(y<0)
+        else if(y<=0)
         {
             if((n-y)>0)
             {
@@ -30,6 +30,16 @@ public class integer_or_not {
                 System.out.println("integer");
             }
         }
+        if(n-y == 0) //merhod 2
+        {
+            System.out.println("integer");
+        }
+        else
+        {
+            System.out.println("not integer");
+        }
+
+
 
     }
 }

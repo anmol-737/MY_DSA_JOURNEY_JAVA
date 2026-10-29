@@ -8,7 +8,7 @@ public class print_odd_numbers {
         System.out.println("enter the number");
         int a = sc.nextInt();
         int i;
-        for(i = 1;i<=a;i++) //n-1+1 baar chal rha h code
+        for(i = 1;i<=a;i++) //a-1+1 baar chal rha h code
         {
             if((i%2)!=0)
             {

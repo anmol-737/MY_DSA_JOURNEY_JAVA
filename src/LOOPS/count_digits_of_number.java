@@ -19,9 +19,7 @@ public class count_digits_of_number {
             {
                 n = n/10;
                 count++;
-
-
-
+                System.out.println(n);
             }
         }
         System.out.println("number of dogits in number = " +count);
